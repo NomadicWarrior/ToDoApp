@@ -64,7 +64,8 @@ class TodoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add New ToDo Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            // what will happen once user clicks
+            
+            // Check if text is empty
             if textField.text!.isEmpty
             {
                 print("Empty")
@@ -79,7 +80,7 @@ class TodoListViewController: UITableViewController {
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new item"
-           textField = alertTextField
+            textField = alertTextField
         }
         
         alert.addAction(action)
