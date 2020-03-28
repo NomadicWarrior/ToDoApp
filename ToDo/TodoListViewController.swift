@@ -12,15 +12,25 @@ class TodoListViewController: UITableViewController {
 
     var itemArray = ["Find Job", "Buy Food", "Meet Brother"]
     
+    let defaults = UserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if let items = defaults.array(forKey: "TodoListArray") as? [String]
+        {
+            itemArray = items
+        }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    // Get light status bar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
         return .lightContent
     }
-    override func viewDidAppear(_ animated: Bool) {
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
         navigationController?.navigationBar.barStyle = .black
     }
 
@@ -40,8 +50,8 @@ class TodoListViewController: UITableViewController {
     }
     
     // MARK - TableView Delegate Methods
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print(itemArray[indexPath.row])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark
         {
@@ -73,6 +83,7 @@ class TodoListViewController: UITableViewController {
             else
             {
                 self.itemArray.append(textField.text!)
+                self.defaults.setValue(self.itemArray, forKey: "TodoListArray")
             }
             
             self.tableView.reloadData()
